@@ -12,6 +12,10 @@ and since Bareos version 20 this project adheres to [Semantic Versioning](https:
 - fix wrong `packages_dir` in restapi workflow, so restapi packages will be released to PyPI [PR #1033]
 
 ### Added
+- add support for building and packaging contrib packages [PR #768]:
+  - bareos-contrib-director-python-plugins
+  - bareos-contrib-filedaemon-python-plugins
+  - bareos-contrib-tools
 
 ### Changed
 
