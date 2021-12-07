@@ -471,10 +471,8 @@ static bool decompress_with_zlib(JobControlRecord* jcr,
     compress_len = jcr->compress.inflate_buffer_size;
   }
 
-  /*
-   * See if this is a compressed stream with the new compression header or an
-   * old one.
-   */
+  // See if this is a compressed stream with the new compression header or an
+  // old one.
   if (with_header) {
     cbuf = (const unsigned char*)*data + sizeof(comp_stream_header);
     real_compress_len = *length - sizeof(comp_stream_header);
