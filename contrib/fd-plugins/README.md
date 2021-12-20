@@ -3,7 +3,7 @@ This directory is intended for Python FD plugins. Please use a subdirectory for 
 Please add a little documentation with a working configuration snippet to your contributions.
 
 
-## Sample pyhon plugins for Bareos FD
+## Sample pyhon Python for Bareos FD
 
 ### Introduction
 
