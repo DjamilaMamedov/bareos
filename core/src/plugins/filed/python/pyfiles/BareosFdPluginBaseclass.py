@@ -28,6 +28,7 @@ import bareosfd
 from bareosfd import *
 import os
 import stat
+import sys
 import time
 
 
@@ -40,6 +41,10 @@ class BareosFdPluginBaseclass(object):
             100,
             "Constructor called in module %s with plugindef=%s\n"
             % (__name__, plugindef),
+        )
+        bareosfd.DebugMessage(
+            100,
+            "{}::__init__:  sys.path={}\n".format(__name__, str(sys.path)),
         )
         events = []
         events.append(bEventJobEnd)
@@ -65,10 +70,13 @@ class BareosFdPluginBaseclass(object):
         self.filetype = "undef"
         self.file = None
         bareosfd.DebugMessage(
-            100, "FDName = %s - BareosFdPluginBaseclass\n" % (self.fdname)
+            100, "FDName = %s\n" % (self.fdname)
         )
         bareosfd.DebugMessage(
-            100, "WorkingDir: %s JobId: %s\n" % (self.workingdir, self.jobId)
+            100, "WorkingDir: %s\n" % (self.workingdir)
+        )
+        bareosfd.DebugMessage(
+            100, "JobId: %s\n" % (self.jobId)
         )
         self.mandatory_options = mandatory_options
 
