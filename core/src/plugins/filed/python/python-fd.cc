@@ -947,14 +947,19 @@ static bRC PyLoadModule(PluginContext* plugin_ctx, void* value)
 
   /* See if we already setup the python search path.  */
   if (!plugin_priv_ctx->python_path_set) {
+    sysPath = PySys_GetObject((char*)"path");
+    mPath = PyUnicode_FromString(PYTHON_MODULE_PATH);
+    //PyList_Append(sysPath, mPath);
+    PyList_Insert(sysPath, 0, mPath);
+    Py_DECREF(mPath);
     /* Extend the Python search path with the given module_path.  */
     if (plugin_priv_ctx->module_path) {
-      sysPath = PySys_GetObject((char*)"path");
       mPath = PyUnicode_FromString(plugin_priv_ctx->module_path);
-      PyList_Append(sysPath, mPath);
+      //PyList_Append(sysPath, mPath);
+      PyList_Insert(sysPath, 0, mPath);
       Py_DECREF(mPath);
-      plugin_priv_ctx->python_path_set = true;
     }
+    plugin_priv_ctx->python_path_set = true;
   }
 
   /* Try to load the Python module by name. */

@@ -216,7 +216,7 @@ else() # IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   if(NOT DEFINED plugindir)
     set(plugindir ${CMAKE_INSTALL_FULL_LIBDIR}/${CMAKE_PROJECT_NAME}/plugins)
   endif()
-
+  
   # bsrdir
   if(NOT DEFINED bsrdir)
     set(bsrdir ${workingdir})
@@ -238,6 +238,11 @@ else() # IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   endif()
 
 endif() # IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+
+set(PYTHON_MODULE_PATH
+    "${plugindir}"
+    CACHE STRING "Default path for Bareos Python modules"
+)
 
 # db_name
 if(NOT DEFINED db_name)
