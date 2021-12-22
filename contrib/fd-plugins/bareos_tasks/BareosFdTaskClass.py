@@ -322,7 +322,7 @@ class BareosFdTaskClass(BareosFdPluginBaseclass):
                     return bRCs['bRC_Error']
                 return bRCs['bRC_OK']
 
-        return super(BareosFdTaskClass).plugin_io(self, iop)
+        return super(BareosFdTaskClass, self).plugin_io(iop)
 
     def end_backup_file(self):
         result = self.task.task_wait()
