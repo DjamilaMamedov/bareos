@@ -617,7 +617,6 @@ To define the backup of a VM in Bareos, a job definition and a fileset resource 
             Compression = GZIP
        }
        Plugin = "python"
-                ":module_path=/usr/lib64/bareos/plugins"
                 ":module_name=bareos-fd-vmware"
                 ":dc=mydc1:folder=/webservers"
                 ":vmname=websrv1"
@@ -635,7 +634,6 @@ Since Bareos :sinceVersion:`17.2.4: bareos-vmware-plugin: module\_path without v
    :caption: python:module\_path for Bareos < 17.2.0
 
    Plugin = "python"
-            ":module_path=/usr/lib64/bareos/plugins/vmware_plugin"
             ":module_name=bareos-fd-vmware"
             ":..."
 
@@ -644,7 +642,7 @@ to
 .. code-block:: bareosconfig
    :caption: python:module\_path for Bareos >= 17.2.0
 
-   Plugin = "python:module_path=/usr/lib64/bareos/plugins:module_name=bareos-fd-vmware:...
+   Plugin = "python:module_name=bareos-fd-vmware:...
 
 or install the **bareos-vmware-plugin-compat** package which includes compatibility symbolic links.
 
@@ -669,7 +667,6 @@ For additional security, there is a now plugin option :command:`vcthumbprint`, t
 
        ...
        Plugin = "pythoni"
-                ":module_path=/usr/lib64/bareos/plugins"
                 ":module_name=bareos-fd-vmware"
                 ":dc=mydc1:folder=/webservers"
                 ":vmname=websrv1"
@@ -694,7 +691,6 @@ To try forcing a given transport method, the plugin option :command:`transport` 
 
        ...
        Plugin = "python"
-                ":module_path=/usr/lib64/bareos/plugins"
                 ":module_name=bareos-fd-vmware"
                 ":dc=mydc1"
                 ":folder=/webservers"
@@ -722,7 +718,6 @@ Since :sinceVersion:`17.2.8: VMware Plugin: non-ascii characters` it is possible
             Compression = GZIP
        }
        Plugin = "python"
-                ":module_path=/usr/lib64/bareos/plugins"
                 ":module_name=bareos-fd-vmware"
                 ":dc=mydc1"
                 ":folder=/Test/Test Folder/Test vApp"
@@ -742,7 +737,6 @@ Since :sinceVersion:`17.2.8: VMware Plugin: non-ascii characters` it is possible
             Compression = GZIP
        }
        Plugin = "python"
-                ":module_path=/usr/lib64/bareos/plugins"
                 ":module_name=bareos-fd-vmware"
                 ":dc=mydc1"
                 ":folder=/Test/Test Folder/Test vApp"
@@ -765,7 +759,6 @@ Before this, it was only possible specify VMs contained in vApps by using the in
        ...
 
        Plugin = "python"
-                ":module_path=/usr/lib64/bareos/plugins"
                 ":module_name=bareos-fd-vmware"
                 ":dc=mydc1"
                 ":uuid=502b112f-3954-d761-be08-5570c8a780e2"
@@ -791,7 +784,6 @@ Since :sinceVersion:`20: VMware Plugin: config file` it is optionally possible t
             Compression = GZIP
        }
        Plugin = "python"
-                ":module_path=/usr/lib64/bareos/plugins"
                 ":module_name=bareos-fd-vmware"
                 ":dc=mydc1"
                 ":folder=/webservers"
@@ -982,7 +974,7 @@ For restoring to local VMDK, the plugin option :strong:`localvmdk=yes` must be p
    When:            2016-02-25 15:06:48
    Catalog:         MyCatalog
    Priority:        10
-   Plugin Options:  python: module_path=/usr/lib64/bareos/plugins:module_name=bareos-fd-vmware: dc=dass5:folder=/: vmname=stephand-test02: vcserver=virtualcenter5.dass-it:vcuser=bakadm@vsphere.local: vcpass=Bak.Adm-1234: localvmdk=yes
+   Plugin Options:  python: vmname=stephand-test02: vcserver=virtualcenter5.dass-it:vcuser=bakadm@vsphere.local: vcpass=Bak.Adm-1234: localvmdk=yes
    OK to run? (yes/mod/no): <input>yes</input>
    Job queued. JobId=639
 
@@ -996,7 +988,6 @@ Before, all Python plugin must be repeated and the additional be added, like:
    :caption: /etc/bareos/vmware-plugin.ini
 
    "python"
-   ":module_path=/usr/lib64/bareos/plugins"
    ":module_name=bareos-fd-vmware"
    ":dc=dass5"
    ":folder=/"
@@ -1035,7 +1026,6 @@ the plugin option :strong:`vadp_dumper_verbose=yes`
    :caption: debug vadp_dumper
 
        Plugin = "python"
-                ":module_path=/usr/lib64/bareos/plugins"
                 ":module_name=bareos-fd-vmware"
                 ":dc=mydc1:folder=/webservers"
                 ":vmname=websrv1"
@@ -1184,7 +1174,6 @@ example to backup the VM **testvm1**, configure the fileset as follows:
             Compression = LZ4
          }
          Plugin = "python"
-                  ":module_path=/usr/lib64/bareos/plugins"
                   ":module_name=bareos-fd-ovirt"
                   ":ca=/etc/bareos/ovirt-ca.cert"
                   ":server=engine.example.com"
@@ -1223,7 +1212,6 @@ Optionally, it is possible to use a configuration file on the system running the
             Compression = LZ4
          }
          Plugin = "python"
-                  ":module_path=/usr/lib64/bareos/plugins"
                   ":module_name=bareos-fd-ovirt"
                   ":ca=/etc/bareos/ovirt-ca.cert"
                   ":server=engine.example.com"
@@ -1250,8 +1238,7 @@ Currently the config file can only be used for credentials. If **username** and 
 Mandatory Plugin Options:
 
 module_path
-   Path to the plugin, when installed from Bareos packages, this is always
-   :file:`/usr/lib64/bareos/plugins`
+   Additional search path for the plugin.
 
 module_name
    Always :file:`bareos-fd-ovirt`
@@ -1575,7 +1562,11 @@ Configuration of Libcloud Plugin
        Options {
          signature = MD5
        }
-       Plugin = "python:module_path=/usr/lib64/bareos/plugins:module_name=bareos-fd-libcloud:config_file=/etc/bareos/libcloud_config.ini:buckets_include=user_data:buckets_exclude=tmp"
+       Plugin = "python"
+                ":module_name=bareos-fd-libcloud"
+                ":config_file=/etc/bareos/libcloud_config.ini"
+                ":buckets_include=user_data"
+                ":buckets_exclude=tmp"
      }
    }
 
@@ -1761,7 +1752,6 @@ Now include the plugin as command-plugin in the Fileset resource:
            File = /etc
            #...
            Plugin = "python"
-                    ":module_path=/usr/lib64/bareos/plugins"
                     ":module_name=bareos-fd-percona-xtrabackup"
                     ":mycnf=/root/.my.cnf"
        }
@@ -1933,7 +1923,6 @@ Now include the plugin as command-plugin in the fileset resource and define a jo
                signature = MD5
            }
            Plugin = "python"
-                    ":module_path=/usr/lib64/bareos/plugins"
                     ":module_name=bareos-fd-postgres"
                     ":postgresDataDir=/var/lib/pgsql/data"
                     ":walArchive=/var/lib/pgsql/wal_archive/"
@@ -2388,7 +2377,6 @@ Single Python Plugin Loading Example:
      # Load the class based plugin with testoption=testparam
      Dir Plugin Options = "python"
                           ":instance=0"
-                          ":module_path=/usr/lib64/bareos/plugins"
                           ":module_name=bareos-dir-class-plugins"
                           ":testoption=testparam"
      # ...
@@ -2414,12 +2402,10 @@ Multiple Python Plugin Loading Example:
      # Load the class based plugin with testoption=testparam
      Dir Plugin Options = "python"
                           ":instance=0"
-                          ":module_path=/usr/lib64/bareos/plugins"
                           ":module_name=bareos-dir-class-plugins"
                           ":testoption=testparam1"
      Dir Plugin Options = "python"
                           ":instance=1"
-                          ":module_path=/usr/lib64/bareos/plugins"
                           ":module_name=bareos-dir-class-plugins"
                           ":testoption=testparam2"
      # ...
