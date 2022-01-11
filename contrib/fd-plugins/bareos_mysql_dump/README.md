@@ -52,7 +52,7 @@ mysqlhost=hostname
 
 ##### mysqldump options #####
 
-By default the opition string
+By default the option string
 ```
 --events --single-transaction --add-drop-database --databases
 ```

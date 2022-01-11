@@ -99,7 +99,7 @@ class BareosFdMySQLclass(BareosFdPluginBaseclass):
             if returnCode == None:
                 JobMessage(
                     M_FATAL,
-                    "No databases specified and show databases failed for unknown reason"
+                    "No databases specified and show databases failed for unknown reason.\n"
                 )
                 DebugMessage(
                     10,
@@ -111,7 +111,7 @@ class BareosFdMySQLclass(BareosFdPluginBaseclass):
                 (stdOut, stdError) = showDb.communicate()    
                 JobMessage(
                     M_FATAL,
-                    "No databases specified and show databases failed. %s"
+                    "No databases specified and show databases failed. %s\n"
                     % stdError
                 )
                 DebugMessage(
@@ -257,7 +257,7 @@ class BareosFdMySQLclass(BareosFdPluginBaseclass):
         if returnCode == None:
             JobMessage(
                 M_ERROR,
-                "Dump command not finished properly for unknown reason"
+                "Dump command not finished properly for unknown reason.\n"
             )
             returnCode = -99
         else:
