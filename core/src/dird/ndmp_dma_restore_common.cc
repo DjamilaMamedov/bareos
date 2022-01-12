@@ -2,7 +2,7 @@
    BAREOS® - Backup Archiving REcovery Open Sourced
 
    Copyright (C) 2011-2015 Planets Communications B.V.
-   Copyright (C) 2013-2019 Bareos GmbH & Co. KG
+   Copyright (C) 2013-2022 Bareos GmbH & Co. KG
 
    This program is Free Software; you can redistribute it and/or
    modify it under the terms of version three of the GNU Affero General Public
@@ -113,7 +113,11 @@ void AddToNamelist(struct ndm_job_param* job,
   nl.node = node;
 
   if (fhinfo) {
-    nl.fh_info.value = fhinfo;
+    if (fhinfo == NDMP_INVALID_U_QUAD) {
+      nl.fh_info.value = 0;
+    } else {
+      nl.fh_info.value = fhinfo;
+    }
     nl.fh_info.valid = NDMP9_VALIDITY_VALID;
   }
 
