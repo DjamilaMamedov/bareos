@@ -87,7 +87,8 @@ void AddToNamelist(struct ndm_job_param* job,
                    char* name,
                    char* other_name,
                    uint64_t node,
-                   uint64_t fhinfo)
+                   uint64_t fhinfo,
+                   bool set_zero_for_invalid_u_quad)
 {
   ndmp9_name nl;
   PoolMem destination_path;
@@ -114,15 +115,12 @@ void AddToNamelist(struct ndm_job_param* job,
   if (fhinfo) {
     nl.fh_info.value = fhinfo;
     // check if we need to set 0 instead of NDMP_INVALID_U_QUAD
-    if (ndmp_fhinfo_set_zero_for_invalid_u_quad
-        && fhinfo == NDMP_INVALID_U_QUAD) {
+    if (set_zero_for_invalid_u_quad && fhinfo == NDMP_INVALID_U_QUAD) {
       nl.fh_info.value = 0;
     }
     nl.fh_info.valid = NDMP9_VALIDITY_VALID;
   }
-}
-
-ndma_store_nlist(&job->nlist_tab, &nl);
+  ndma_store_nlist(&job->nlist_tab, &nl);
 }
 
 /*
