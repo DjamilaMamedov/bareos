@@ -188,7 +188,7 @@
           "equals": true,
           "versions": "13.2.0-"
         },
-        "NdmpNamelistFhinfoSetZeroForInvalidUQuad": {
+        "NdmpNamelistFhinfoSetZeroForInvalidUquad": {
           "datatype": "BOOLEAN",
           "code": 0,
           "equals": true,
