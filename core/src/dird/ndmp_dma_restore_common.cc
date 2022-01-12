@@ -108,20 +108,21 @@ void AddToNamelist(struct ndm_job_param* job,
   nl.name = name;
   nl.other_name = other_name;
 
-
   // add fh_node and fh_info for DAR for native NDMP backup
   nl.node = node;
 
   if (fhinfo) {
-    if (fhinfo == NDMP_INVALID_U_QUAD) {
+    nl.fh_info.value = fhinfo;
+    // check if we need to set 0 instead of NDMP_INVALID_U_QUAD
+    if (ndmp_fhinfo_set_zero_for_invalid_u_quad
+        && fhinfo == NDMP_INVALID_U_QUAD) {
       nl.fh_info.value = 0;
-    } else {
-      nl.fh_info.value = fhinfo;
     }
     nl.fh_info.valid = NDMP9_VALIDITY_VALID;
   }
+}
 
-  ndma_store_nlist(&job->nlist_tab, &nl);
+ndma_store_nlist(&job->nlist_tab, &nl);
 }
 
 /*
